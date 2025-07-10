@@ -107,9 +107,11 @@ const Navbar = ({ setShowSidebar, showSidebar, open, setOpen }) => {
   const [date, setDate] = useState(new Date());
   const [openPasswordChange, setOpenPasswordChange] = useState(false);
 
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   /////////////////////////////////////////// USE EFFECTS ////////////////////////////////////////////
   useEffect(() => {
-    var timer = setInterval(() => setDate(new Date()), 1000);
+    var timer = setInterval(() => setDate(new Date() ), 1000);
     return function cleanup() {
       clearInterval(timer);
     };
@@ -145,7 +147,11 @@ const Navbar = ({ setShowSidebar, showSidebar, open, setOpen }) => {
             </IconButton>
             <div>
               <p className="text-sky-400 text-xl gap-1 flex items-center">
-                <PiTimerLight className="text-[25px]" /> {date.toLocaleTimeString()}
+                <span className="text-gray-500 text-sm">
+                  {timeZone}
+                </span>
+                <PiTimerLight className="text-[25px]" /> 
+                {date.toLocaleTimeString()}
               </p>
             </div>
           </div>
@@ -258,6 +264,13 @@ const Navbar = ({ setShowSidebar, showSidebar, open, setOpen }) => {
               <Link to="/employees">
                 <Tooltip title="Add Employee" arrow placement="bottom">
                   <IconButton className="h-fit hover:text-sky-400" size="small" aria-label="menu">
+                    <PiUserPlus className="text-[25px]" />
+                  </IconButton>
+                </Tooltip>
+              </Link>
+              <Link to="/clients">
+                <Tooltip title="Add Client" arrow placement="bottom">
+                  <IconButton className="h-fit text-sky-400 hover:text-sky-400" size="small" aria-label="menu">
                     <PiUserPlus className="text-[25px]" />
                   </IconButton>
                 </Tooltip>
